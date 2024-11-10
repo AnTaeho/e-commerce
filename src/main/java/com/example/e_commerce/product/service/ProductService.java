@@ -40,7 +40,7 @@ public class ProductService {
     }
 
     private Product getProduct(Long productId) {
-        return productRepository.findById(productId)
+        return productRepository.findByIdWithLock(productId)
                 .orElseThrow(() -> new IllegalArgumentException("제품을 찾을 수 없습니다."));
     }
 
