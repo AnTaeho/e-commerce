@@ -1,5 +1,6 @@
 package com.example.e_commerce.product.service;
 
+import com.example.e_commerce.aop.lock.DistributedLock;
 import com.example.e_commerce.history.domain.History;
 import com.example.e_commerce.history.repository.HistoryRepository;
 import com.example.e_commerce.product.controller.dto.BuyRequest;
@@ -30,6 +31,7 @@ public class ProductService {
     }
 
     @Transactional
+    @DistributedLock(key = "'PRODUCT_LOCK' + #buyRequest.productId")
     public void sell(BuyRequest buyRequest, String email) {
         User user = getUser(email);
         Product product = getProduct(buyRequest.productId());
