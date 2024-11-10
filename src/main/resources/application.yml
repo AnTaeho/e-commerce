@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/commerce
+    username: root
+    password: an902318
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        use_sql_comments: true
+        format_sql: true
+    hibernate:
+      ddl-auto: create
+
+  redis:
+    host: localhost
+    port: 6379
+    password:
+
+
+jwt:
+  secret: j2jk34b12b4jkb1jk4bk1b4j24bjk2b14kj21b4jb21k4b1khvfc8f7gfg7f2g78ab82ng2kj1f2dg1aaf9asf8afgyivfl3fy13f138fku1hfo1bu
+  queue_expiration_time: 3600 # 1??
+server:
+  port: 8081
