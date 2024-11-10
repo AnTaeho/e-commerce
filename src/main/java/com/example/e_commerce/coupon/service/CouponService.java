@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class CouponService {
 
     private final CouponRepository couponRepository;
-    private final RedisCouponService redisCouponService;
     private final CouponRedisRepository couponRedisRepository;
     private final ApplicationEventPublisher publisher;
 
@@ -36,7 +35,7 @@ public class CouponService {
 
     @Transactional
     public void issueCouponWithRedisTransaction(Long couponId, String email) {
-        Long amount = redisCouponService.getAmount(couponId);
+        Long amount = couponRedisRepository.getAmount(couponId);
         if (amount == null) {
             amount = getAmount(couponId);
         }

@@ -27,4 +27,13 @@ public class CouponRedisRepository {
         return new RedisResult(result.get(0), result.get(1) == 1L);
     }
 
+    public Long getAmount(Long couponId) {
+        String result = redisTemplate.opsForValue()
+                .get("coupon:" + couponId);
+        if (result == null) {
+            return null;
+        }
+        return Long.parseLong(result);
+    }
+
 }
