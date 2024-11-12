@@ -35,14 +35,10 @@ public class CouponService {
 
     @Transactional
     public void issueCouponWithRedisTransaction(Long couponId, String email) {
-        Long amount = couponRedisRepository.getAmount(couponId);
-        if (amount == null) {
-            amount = getAmount(couponId);
-        }
 
-        RedisResult result = couponRedisRepository.execute(new RedisVo("coupon:" + couponId, email));
+        RedisResult result = couponRedisRepository.execute(new RedisVo("coupon:" + couponId, email, couponId));
 
-        if (result.size() >= amount) {
+        if (result.size() >= result.amount()) {
             return;
         }
 
@@ -53,8 +49,6 @@ public class CouponService {
         publisher.publishEvent(new CouponEvent(couponId, email));
     }
 
-    public Long getAmount(Long couponId) {
-        return couponRepository.getCouponAmount(couponId);
-    }
+
 
 }
