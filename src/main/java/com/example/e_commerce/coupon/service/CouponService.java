@@ -23,6 +23,7 @@ public class CouponService {
     private final CouponRedisRepository couponRedisRepository;
     private final ApplicationEventPublisher publisher;
 
+    @Transactional
     public CouponResponse createTicket(CouponRequest couponRequest) {
         Coupon coupon = new Coupon(
                 couponRequest.amount(),

@@ -4,7 +4,6 @@ import com.example.e_commerce.coupon.controller.dto.RedisResult;
 import com.example.e_commerce.coupon.controller.dto.RedisVo;
 import com.example.e_commerce.coupon.redis.RedisOperation;
 import com.example.e_commerce.coupon.redis.RedisTransaction;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,14 +16,16 @@ public class CouponRedisRepository {
     private final RedisTemplate<String, String> redisTemplate;
     private final RedisTransaction redisTransaction;
     private final RedisOperation<RedisVo> operation;
+    private final CouponRepository couponRepository;
 
     public RedisResult execute(RedisVo redisVO) {
         List<Object> execute = redisTransaction.execute(redisTemplate, operation, redisVO);
-        List<Long> result = new ArrayList<>();
-        for (Object o : execute) {
-            result.add((Long) o);
+        Object amount =  execute.get(0);
+        if (amount == null) {
+            amount = couponRepository.getCouponAmount(redisVO.couponId());
         }
-        return new RedisResult(result.get(0), result.get(1), result.get(2) == 1L);
+
+        return new RedisResult(Long.parseLong(String.valueOf(amount)), Long.parseLong(String.valueOf(execute.get(1))), Long.parseLong(String.valueOf(execute.get(2))) != 1L);
     }
 
 }

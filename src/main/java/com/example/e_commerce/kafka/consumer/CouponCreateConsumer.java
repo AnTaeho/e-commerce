@@ -23,7 +23,7 @@ public class CouponCreateConsumer {
     private final CouponRepository couponRepository;
 
     @Transactional
-    @KafkaListener(topics = "issue-ticket", groupId = "group_1")
+    @KafkaListener(topics = "issue-coupon", groupId = "group_1")
     public void listener(CouponEvent couponEvent) {
         userCouponRepository.save(new UserCoupon(couponEvent.couponId(), couponEvent.email()));
         decreaseTicketAmount(couponEvent);
