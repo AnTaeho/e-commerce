@@ -1,4 +1,13 @@
 spring:
+  kafka:
+    consumer:
+      group-id: test-group
+      auto-offset-reset: earliest
+      properties:
+        enable.auto.commit: false
+    producer:
+      retries: 1
+    bootstrap-servers: localhost:9092
   datasource:
     url: jdbc:mysql://localhost:3306/commerce
     username: root
