@@ -21,7 +21,7 @@ public class CouponController {
 
     @PostMapping
     public ResponseEntity<CouponResponse> createTicket(@RequestBody CouponRequest couponRequest) {
-        return ResponseEntity.ok(couponService.createTicket(couponRequest));
+        return ResponseEntity.ok(couponService.createCoupon(couponRequest));
     }
 
     @PostMapping("/{couponId}")

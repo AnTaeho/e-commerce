@@ -1,24 +1,15 @@
 spring:
-  kafka:
-    consumer:
-      group-id: test-group
-      auto-offset-reset: earliest
-      properties:
-        enable.auto.commit: false
-    producer:
-      retries: 1
-    bootstrap-servers: localhost:9092
   datasource:
     url: jdbc:mysql://localhost:3306/commerce
     username: root
     password: an902318
 
   jpa:
-    show-sql: true
+#    show-sql: true
     properties:
       hibernate:
-        use_sql_comments: true
-        format_sql: true
+#        use_sql_comments: true
+#        format_sql: true
     hibernate:
       ddl-auto: create
 

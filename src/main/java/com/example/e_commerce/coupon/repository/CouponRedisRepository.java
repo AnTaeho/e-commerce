@@ -22,10 +22,20 @@ public class CouponRedisRepository {
         List<Object> execute = redisTransaction.execute(redisTemplate, operation, redisVO);
         Object amount =  execute.get(0);
         if (amount == null) {
-            amount = couponRepository.getCouponAmount(redisVO.couponId());
+            amount = couponRepository.getCouponWithLock(redisVO.couponId());
         }
 
         return new RedisResult(Long.parseLong(String.valueOf(amount)), Long.parseLong(String.valueOf(execute.get(1))), Long.parseLong(String.valueOf(execute.get(2))) != 1L);
     }
 
+    public Long getCount(Long couponId) {
+        return redisTemplate.opsForValue()
+                .decrement("couponId:" + couponId);
+    }
+
+
+    public Long checkDuplicate(Long couponId, String email) {
+        return redisTemplate.opsForSet()
+                .add("couponId:" + couponId + email, email);
+    }
 }

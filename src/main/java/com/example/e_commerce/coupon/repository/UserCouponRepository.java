@@ -4,4 +4,7 @@ import com.example.e_commerce.coupon.domain.UserCoupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserCouponRepository extends JpaRepository<UserCoupon, Long> {
+
+    boolean existsByEmailAndCouponId(String email, Long couponId);
+
 }
