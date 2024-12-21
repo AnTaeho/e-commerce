@@ -31,7 +31,7 @@ public class ProductService {
     }
 
     @Transactional
-    @DistributedLock(key = "'PRODUCT_LOCK' + #buyRequest.productId")
+    @DistributedLock(key = "PRODUCT_LOCK")
     public void sell(BuyRequest buyRequest, String email) {
         User user = getUser(email);
         Product product = getProduct(buyRequest.productId());

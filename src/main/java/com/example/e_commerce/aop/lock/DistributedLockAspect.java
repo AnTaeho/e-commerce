@@ -34,7 +34,7 @@ public class DistributedLockAspect {
                     distributedLock.leaseTime(),
                     distributedLock.timeUnit()
             );
-            if (!acquired) {
+            if (acquired) {
                 throw new IllegalArgumentException("락을 얻을 수 없습니다.");
             }
             return joinPoint.proceed();

@@ -34,6 +34,9 @@ public class Product extends BaseEntity {
     }
 
     public void sell(int amount) {
+        if (amount > this.amount) {
+            throw new IllegalArgumentException("수량 부족");
+        }
         this.amount -= amount;
     }
 }
